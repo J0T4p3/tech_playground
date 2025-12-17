@@ -1,0 +1,7 @@
+asgiref==3.11.0
+django==6.0
+djangorestframework==3.16.1
+psycopg==3.3.2
+sqlparse==0.5.4
+typing-extensions==4.15.0
+tzdata==2025.3
