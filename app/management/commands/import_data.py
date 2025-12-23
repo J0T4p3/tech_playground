@@ -2,6 +2,7 @@ import csv
 import os
 from datetime import datetime
 
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 from app.constants import STATE_CHOICES
@@ -14,10 +15,16 @@ class Command(BaseCommand):
     help = 'Importar dados do data.csv para o banco de dados'
 
     def add_arguments(self, parser):
-        parser.add_argument('csv_file', type=str, help='Caminho para o arquivo CSV')
+        parser.add_argument('--csv_file', type=str, required=True, help='Caminho para o arquivo CSV')
+        parser.add_argument('--database', type=str, default='default', help='Banco de dados a ser usado')
 
     def handle(self, *args, **options):
         csv_file = options['csv_file']
+        database = options['database']
+        # Run pending migrations
+        self.stdout.write('Running migrations...')
+        call_command('migrate', database=database, verbosity=0)
+        self.stdout.write(self.style.SUCCESS('Migrations completed.'))
         if not os.path.exists(csv_file):
             self.stdout.write(self.style.ERROR(f'Arquivo {csv_file} não existe'))
             return
@@ -27,26 +34,26 @@ class Command(BaseCommand):
             for row in reader:
                 try:
                     # Criar hierarquia
-                    empresa, _ = Empresa.objects.get_or_create(nome=row['n0_empresa'])
-                    diretoria, _ = Diretoria.objects.get_or_create(
+                    empresa, _ = Empresa.objects.using(database).get_or_create(nome=row['n0_empresa'])
+                    diretoria, _ = Diretoria.objects.using(database).get_or_create(
                         nome=row['n1_diretoria'], empresa=empresa
                     )
-                    gerencia, _ = Gerencia.objects.get_or_create(
+                    gerencia, _ = Gerencia.objects.using(database).get_or_create(
                         nome=row['n2_gerencia'], empresa=empresa, diretoria=diretoria
                     )
-                    coordenadoria, _ = Coordenadoria.objects.get_or_create(
+                    coordenadoria, _ = Coordenadoria.objects.using(database).get_or_create(
                         nome=row['n3_coordenacao'], empresa=empresa, gerencia=gerencia
                     )
-                    area, _ = Area.objects.get_or_create(
+                    area, _ = Area.objects.using(database).get_or_create(
                         nome=row['n4_area'], empresa=empresa, cordenadoria=coordenadoria
                     )
 
                     # Criar EmployeeLevel e EmployeeType
-                    level, _ = EmployeeLevel.objects.get_or_create(funcao=row['funcao'])
-                    emp_type, _ = EmployeeType.objects.get_or_create(cargo=row['cargo'])
+                    level, _ = EmployeeLevel.objects.using(database).get_or_create(funcao=row['funcao'])
+                    emp_type, _ = EmployeeType.objects.using(database).get_or_create(cargo=row['cargo'])
 
                     # Criar Person
-                    person, _ = Person.objects.get_or_create(
+                    person, _ = Person.objects.using(database).get_or_create(
                         nome=row['nome'],
                         email=row['email'],
                         defaults={
@@ -63,7 +70,7 @@ class Command(BaseCommand):
                             break
 
                     # Criar Employee
-                    employee, _ = Employee.objects.get_or_create(
+                    employee, _ = Employee.objects.using(database).get_or_create(
                         pessoa=person,
                         defaults={
                             'empresa': empresa,
@@ -80,7 +87,7 @@ class Command(BaseCommand):
                     data_resposta = datetime.strptime(row['Data da Resposta'], '%d/%m/%Y').date()
 
                     # Criar SurveyResponse
-                    SurveyResponse.objects.get_or_create(
+                    SurveyResponse.objects.using(database).get_or_create(
                         employee=employee,
                         data_da_resposta=data_resposta,
                         defaults={
