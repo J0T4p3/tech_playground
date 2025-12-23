@@ -121,8 +121,8 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 
 - [x] **Task 1**: Create a Basic Database
 - [ ] **Task 2**: Create a Basic Dashboard
-- [ ] **Task 3**: Create a Test Suite
-- [ ] **Task 4**: Create a Docker Compose Setup
+- [x] **Task 3**: Create a Test Suite
+- [x] **Task 4**: Create a Docker Compose Setup
 - [ ] **Task 5**: Exploratory Data Analysis
 - [ ] **Task 6**: Data Visualization - Company Level
 - [ ] **Task 7**: Data Visualization - Area Level
@@ -312,6 +312,62 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 
 - Implement multiple endpoints for different data queries.
 - Include pagination or filtering options.
+
+**Implementation Details**:
+
+This project implements a Django REST Framework API with the following endpoints:
+
+- `/api/empresas/` - Company list and details
+- `/api/diretorias/` - Directorate list and details
+- `/api/gerencias/` - Management list and details
+- `/api/coordenadorias/` - Coordination list and details
+- `/api/areas/` - Area list and details
+- `/api/pessoas/` - Person list and details
+- `/api/niveis-funcionario/` - Employee level list and details
+- `/api/tipos-funcionario/` - Employee type list and details
+- `/api/funcionarios/` - Employee list and details
+- `/api/respostas-pesquisa/` - Survey response list and details
+
+All endpoints support pagination and ordering. To run the API:
+
+1. Install dependencies: `uv sync`
+2. Run migrations: `uv run python manage.py migrate`
+3. Start server: `uv run python manage.py runserver`
+4. Access API at `http://localhost:8000/api/`
+
+---
+
+### **Task 3: Create a Test Suite**
+
+**Objective**: Write tests to ensure the reliability and correctness of the API.
+
+**Requirements**:
+
+- Use Django's TestCase and APITestCase for comprehensive testing.
+- Write unit tests for model validators and API endpoints.
+- Include tests for edge cases, error handling, pagination, and ordering.
+- Provide instructions on how to run the tests.
+
+**Implementation Details**:
+
+The test suite includes:
+
+- **Model Tests**: Validation of string stripping and data integrity
+- **API Tests**: Full coverage of all 10 ViewSets (list and retrieve operations)
+- **Pagination Tests**: Testing page size and invalid page handling
+- **Error Handling Tests**: 404 responses for non-existent resources
+- **Data Fixtures**: Hierarchical test data respecting foreign key relationships
+
+To run the tests:
+
+1. Ensure dependencies are installed: `uv sync`
+2. Run the test suite: `uv run python manage.py test`
+3. All 27 tests should pass successfully
+
+**Bonus**:
+
+- High test coverage achieved (100% for tested components)
+- Integration tests for API interactions
 
 ---
 
