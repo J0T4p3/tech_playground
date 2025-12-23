@@ -357,3 +357,82 @@ class ModelValidationTestCase(TestCase):
             geracao="Millennials"
         )
         self.assertEqual(str(person), "Test Person - test@example.com")
+
+    def test_duplicate_person_email(self):
+        # Create first person
+        Person.objects.create(
+            nome="Person 1",
+            email="duplicate@example.com",
+            genero="M",
+            geracao="Millennials"
+        )
+        # Try to create second with same email
+        with self.assertRaises(ValidationError) as cm:
+            person2 = Person(
+                nome="Person 2",
+                email="duplicate@example.com",
+                genero="F",
+                geracao="Geração Z"
+            )
+            person2.full_clean()  # This should raise ValidationError
+        self.assertIn("Este email já está em uso por outra pessoa.", str(cm.exception))
+
+    def test_duplicate_employee_email_corporativo(self):
+        # Create necessary objects
+        empresa = Empresa.objects.create(nome="Test Empresa")
+        person = Person.objects.create(
+            nome="Test Person",
+            email="person@example.com",
+            genero="M",
+            geracao="Millennials"
+        )
+        level = EmployeeLevel.objects.create(funcao="Test Level")
+        type_ = EmployeeType.objects.create(cargo="Test Type")
+        diretoria = Diretoria.objects.create(empresa=empresa, nome="Test Diretoria")
+        gerencia = Gerencia.objects.create(
+            nome="Test Gerencia",
+            empresa=empresa,
+            diretoria=diretoria
+        )
+        coordenadoria = Coordenadoria.objects.create(
+            nome="Test Coordenadoria",
+            empresa=empresa,
+            gerencia=gerencia
+        )
+        area = Area.objects.create(
+            nome="Test Area",
+            empresa=empresa,
+            cordenadoria=coordenadoria
+        )
+
+        # Create first employee
+        Employee.objects.create(
+            pessoa=person,
+            empresa=empresa,
+            email_corporativo="corp@example.com",
+            funcao=level,
+            cargo=type_,
+            area=area,
+            estado="SP",
+            tempo_de_empresa="1 ano"
+        )
+        # Try to create second with same email_corporativo
+        person2 = Person.objects.create(
+            nome="Test Person 2",
+            email="person2@example.com",
+            genero="F",
+            geracao="Geração Z"
+        )
+        with self.assertRaises(ValidationError) as cm:
+            employee2 = Employee(
+                pessoa=person2,
+                empresa=empresa,
+                email_corporativo="corp@example.com",
+                funcao=level,
+                cargo=type_,
+                area=area,
+                estado="RJ",
+                tempo_de_empresa="2 anos"
+            )
+            employee2.full_clean()  # This should raise ValidationError
+        self.assertIn("Este email corporativo já está em uso por outro funcionário.", str(cm.exception))
