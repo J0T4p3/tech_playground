@@ -62,7 +62,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(max_length=255, verbose_name='Nome')),
                 ('email', models.EmailField(max_length=254, verbose_name='Email')),
-                ('celular', models.CharField(max_length=20, verbose_name='Celular')),
                 ('genero', models.CharField(choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], max_length=1, verbose_name='Gênero')),
                 ('geracao', models.CharField(choices=[('Baby Boomers', 'Baby Boomers'), ('Geração X', 'Geracao X'), ('Millennials', 'Millennials'), ('Geração Z', 'Geracao Z')], max_length=20, verbose_name='Geração')),
             ],
