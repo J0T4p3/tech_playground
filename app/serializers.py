@@ -51,7 +51,7 @@ class SerializadorPessoa(serializers.ModelSerializer):
     """Serializador para o modelo Pessoa"""
     class Meta:
         model = Person
-        fields = ['nome', 'email', 'celular', 'genero', 'geracao']
+        fields = ['nome', 'email', 'genero', 'geracao']
 
 
 class SerializadorNivelFuncionario(serializers.ModelSerializer):
@@ -70,7 +70,7 @@ class SerializadorTipoFuncionario(serializers.ModelSerializer):
 
 class SerializadorFuncionario(serializers.ModelSerializer):
     """Serializador para o modelo Funcionário"""
-    pessoa = serializers.StringRelatedField()
+    pessoa = SerializadorPessoa()
     empresa = serializers.StringRelatedField()
     area = serializers.StringRelatedField()
     funcao = serializers.StringRelatedField()

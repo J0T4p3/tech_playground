@@ -9,6 +9,7 @@ load_dotenv('.env.dev')
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'app.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.OrderingFilter'],
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

@@ -13,6 +13,7 @@ class Empresa(models.Model):
     class Meta:
         verbose_name = "Empresa"
         verbose_name_plural = "Empresas"
+        ordering = ['nome']
 
 class Diretoria(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
@@ -24,6 +25,7 @@ class Diretoria(models.Model):
     class Meta:
         verbose_name = "Diretoria"
         verbose_name_plural = "Diretorias"
+        ordering = ['nome']
 
 class Gerencia(models.Model):
     nome = models.CharField(max_length=255, verbose_name="Gerência")
@@ -36,6 +38,7 @@ class Gerencia(models.Model):
     class Meta:
         verbose_name = "Gerência"
         verbose_name_plural = "Gerências"
+        ordering = ['nome']
 
 class Coordenadoria(models.Model):
     nome = models.CharField(max_length=255, verbose_name="Coordenadoria")
@@ -48,6 +51,7 @@ class Coordenadoria(models.Model):
     class Meta:
         verbose_name = "Coordenadoria"
         verbose_name_plural = "Coordenadorias"
+        ordering = ['nome']
 
 class Area(models.Model):
     nome = models.CharField(max_length=255, verbose_name="Área")
@@ -60,6 +64,7 @@ class Area(models.Model):
     class Meta:
         verbose_name = "Área"
         verbose_name_plural = "Áreas"
+        ordering = ['nome']
 
 class Person(models.Model):
     # Definindo escolhas para gênero e geração
@@ -75,7 +80,6 @@ class Person(models.Model):
 
     nome = models.CharField(max_length=255, verbose_name="Nome")
     email = models.EmailField(verbose_name="Email")
-    celular = models.CharField(max_length=20, verbose_name="Celular")
     genero = models.CharField(max_length=1, choices=GenderChoices.choices, verbose_name="Gênero")
     geracao = models.CharField(max_length=20, choices=GenerationChoices.choices, verbose_name="Geração")
 
@@ -85,6 +89,7 @@ class Person(models.Model):
     class Meta:
         verbose_name = "Pessoa"
         verbose_name_plural = "Pessoas"
+        ordering = ['nome']
 
 class EmployeeLevel(models.Model):
     funcao = models.CharField(max_length=255, verbose_name="Função")
@@ -95,6 +100,7 @@ class EmployeeLevel(models.Model):
     class Meta:
         verbose_name = "Função"
         verbose_name_plural = "Funções"
+        ordering = ['funcao']
 
 class EmployeeType(models.Model):
     cargo = models.CharField(max_length=255, verbose_name="Cargo")
@@ -105,6 +111,7 @@ class EmployeeType(models.Model):
     class Meta:
         verbose_name = "Cargo"
         verbose_name_plural = "Cargos"
+        ordering = ['cargo']
 
 class Employee(models.Model):
     pessoa = models.OneToOneField(Person, on_delete=models.CASCADE, verbose_name="Funcionário")
@@ -123,6 +130,7 @@ class Employee(models.Model):
     class Meta:
         verbose_name = "Funcionário"
         verbose_name_plural = "Funcionários"
+        ordering = ['pessoa__nome']
 
 
 class SurveyResponse(models.Model):
@@ -159,4 +167,5 @@ class SurveyResponse(models.Model):
     class Meta:
         verbose_name = "Resposta de Pesquisa"
         verbose_name_plural = "Respostas de Pesquisas"
+        ordering = ['-data_da_resposta']
 

@@ -80,13 +80,13 @@ Favorability helps identify areas where employees feel positively about their ex
 ---
 
 ### 3. **Net Promoter Score (NPS)**
-NPS is a metric used to measure loyalty and satisfaction, often represented as a single number between -100 and 100. It is based on responses to the question: 
+NPS is a metric used to measure loyalty and satisfaction, often represented as a single number between -100 and 100. It is based on responses to the question:
 *"On a scale from 0 to 10, how likely are you to recommend this company as a great place to work?"*
 - Respondents are categorized as:
   - **Promoters** (9-10): Loyal enthusiasts who will recommend the company.
   - **Passives** (7-8): Neutral respondents.
   - **Detractors** (0-6): Unhappy respondents who may discourage others.
-- **Calculation**:  
+- **Calculation**:
 
 ```
 NPS = (% Promoters) - (% Detractors)
@@ -119,7 +119,7 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 
 ### **Your Selected Tasks**
 
-- [ ] **Task 1**: Create a Basic Database
+- [x] **Task 1**: Create a Basic Database
 - [ ] **Task 2**: Create a Basic Dashboard
 - [ ] **Task 3**: Create a Test Suite
 - [ ] **Task 4**: Create a Docker Compose Setup
@@ -127,7 +127,7 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 - [ ] **Task 6**: Data Visualization - Company Level
 - [ ] **Task 7**: Data Visualization - Area Level
 - [ ] **Task 8**: Data Visualization - Employee Level
-- [ ] **Task 9**: Build a Simple API
+- [x] **Task 9**: Build a Simple API
 - [ ] **Task 10**: Sentiment Analysis
 - [ ] **Task 11**: Report Generation
 - [ ] **Task 12**: Creative Exploration
