@@ -1,59 +1,71 @@
+# Conjuntos de visões para a API REST (somente leitura)
 from rest_framework import viewsets
 
 from .models import (Area, Coordenadoria, Diretoria, Employee, EmployeeLevel,
                      EmployeeType, Empresa, Gerencia, Person, SurveyResponse)
-from .serializers import (AreaSerializer, CoordenadoriaSerializer,
-                          DiretoriaSerializer, EmployeeLevelSerializer,
-                          EmployeeSerializer, EmployeeTypeSerializer,
-                          EmpresaSerializer, GerenciaSerializer,
-                          PersonSerializer, SurveyResponseSerializer)
+from .serializers import (SerializadorArea, SerializadorCoordenadoria,
+                          SerializadorDiretoria, SerializadorEmpresa,
+                          SerializadorFuncionario, SerializadorGerencia,
+                          SerializadorNivelFuncionario, SerializadorPessoa,
+                          SerializadorRespostaPesquisa,
+                          SerializadorTipoFuncionario)
 
 
-class EmpresaViewSet(viewsets.ModelViewSet):
+class EmpresaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Empresa"""
     queryset = Empresa.objects.all()
-    serializer_class = EmpresaSerializer
+    serializer_class = SerializadorEmpresa
 
 
-class DiretoriaViewSet(viewsets.ModelViewSet):
+class DiretoriaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Diretoria"""
     queryset = Diretoria.objects.all()
-    serializer_class = DiretoriaSerializer
+    serializer_class = SerializadorDiretoria
 
 
-class GerenciaViewSet(viewsets.ModelViewSet):
+class GerenciaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Gerencia"""
     queryset = Gerencia.objects.all()
-    serializer_class = GerenciaSerializer
+    serializer_class = SerializadorGerencia
 
 
-class CoordenadoriaViewSet(viewsets.ModelViewSet):
+class CoordenadoriaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Coordenadoria"""
     queryset = Coordenadoria.objects.all()
-    serializer_class = CoordenadoriaSerializer
+    serializer_class = SerializadorCoordenadoria
 
 
-class AreaViewSet(viewsets.ModelViewSet):
+class AreaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Area"""
     queryset = Area.objects.all()
-    serializer_class = AreaSerializer
+    serializer_class = SerializadorArea
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class PessoaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Person"""
     queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+    serializer_class = SerializadorPessoa
 
 
-class EmployeeLevelViewSet(viewsets.ModelViewSet):
+class NivelFuncionarioViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para EmployeeLevel"""
     queryset = EmployeeLevel.objects.all()
-    serializer_class = EmployeeLevelSerializer
+    serializer_class = SerializadorNivelFuncionario
 
 
-class EmployeeTypeViewSet(viewsets.ModelViewSet):
+class TipoFuncionarioViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para EmployeeType"""
     queryset = EmployeeType.objects.all()
-    serializer_class = EmployeeTypeSerializer
+    serializer_class = SerializadorTipoFuncionario
 
 
-class EmployeeViewSet(viewsets.ModelViewSet):
+class FuncionarioViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para Employee"""
     queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
+    serializer_class = SerializadorFuncionario
 
 
-class SurveyResponseViewSet(viewsets.ModelViewSet):
+class RespostaPesquisaViewSet(viewsets.ReadOnlyModelViewSet):
+    """Conjunto de visões para SurveyResponse"""
     queryset = SurveyResponse.objects.all()
-    serializer_class = SurveyResponseSerializer
+    serializer_class = SerializadorRespostaPesquisa
