@@ -54,6 +54,9 @@ requires-dist = [
     { name = "psycopg", specifier = ">=3.3.2" },
 ]
 
+[package.metadata.requires-dev]
+dev = []
+
 [[package]]
 name = "psycopg"
 version = "3.3.2"
