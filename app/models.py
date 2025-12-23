@@ -1,11 +1,21 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from .constants import STATE_CHOICES
 
 
+def validate_stripped(value):
+    """Validador para garantir que strings sejam stripped"""
+    if isinstance(value, str):
+        stripped = value.strip()
+        if stripped != value:
+            raise ValidationError("O valor não deve conter espaços em branco no início ou fim.")
+    return value
+
+
 # Modelos desenhados para escalar a solução de forma hierárquica
 class Empresa(models.Model):
-    nome = models.CharField(max_length=255, verbose_name="Compania")
+    nome = models.CharField(max_length=255, verbose_name="Compania", validators=[validate_stripped])
 
     def __str__(self):
         return self.nome
@@ -17,7 +27,7 @@ class Empresa(models.Model):
 
 class Diretoria(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
-    nome = models.CharField(max_length=255, verbose_name="Diretoria")
+    nome = models.CharField(max_length=255, verbose_name="Diretoria", validators=[validate_stripped])
 
     def __str__(self):
         return f"{self.nome} - {self.empresa.nome}"
@@ -28,7 +38,7 @@ class Diretoria(models.Model):
         ordering = ['nome']
 
 class Gerencia(models.Model):
-    nome = models.CharField(max_length=255, verbose_name="Gerência")
+    nome = models.CharField(max_length=255, verbose_name="Gerência", validators=[validate_stripped])
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
     diretoria = models.ForeignKey(Diretoria, on_delete=models.CASCADE, verbose_name="Diretoria")
 
@@ -41,7 +51,7 @@ class Gerencia(models.Model):
         ordering = ['nome']
 
 class Coordenadoria(models.Model):
-    nome = models.CharField(max_length=255, verbose_name="Coordenadoria")
+    nome = models.CharField(max_length=255, verbose_name="Coordenadoria", validators=[validate_stripped])
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
     gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, verbose_name="Gerência")
 
@@ -54,7 +64,7 @@ class Coordenadoria(models.Model):
         ordering = ['nome']
 
 class Area(models.Model):
-    nome = models.CharField(max_length=255, verbose_name="Área")
+    nome = models.CharField(max_length=255, verbose_name="Área", validators=[validate_stripped])
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name="Empresa")
     cordenadoria = models.ForeignKey(Coordenadoria, on_delete=models.CASCADE, verbose_name="Coordenadoria")
 
@@ -78,7 +88,7 @@ class Person(models.Model):
         MILLENNIALS = "Millennials"
         GERACAO_Z = "Geração Z"
 
-    nome = models.CharField(max_length=255, verbose_name="Nome")
+    nome = models.CharField(max_length=255, verbose_name="Nome", validators=[validate_stripped])
     email = models.EmailField(verbose_name="Email")
     genero = models.CharField(max_length=1, choices=GenderChoices.choices, verbose_name="Gênero")
     geracao = models.CharField(max_length=20, choices=GenerationChoices.choices, verbose_name="Geração")
@@ -92,7 +102,7 @@ class Person(models.Model):
         ordering = ['nome']
 
 class EmployeeLevel(models.Model):
-    funcao = models.CharField(max_length=255, verbose_name="Função")
+    funcao = models.CharField(max_length=255, verbose_name="Função", validators=[validate_stripped])
 
     def __str__(self):
         return self.funcao
@@ -103,7 +113,7 @@ class EmployeeLevel(models.Model):
         ordering = ['funcao']
 
 class EmployeeType(models.Model):
-    cargo = models.CharField(max_length=255, verbose_name="Cargo")
+    cargo = models.CharField(max_length=255, verbose_name="Cargo", validators=[validate_stripped])
 
     def __str__(self):
         return self.cargo
@@ -122,7 +132,7 @@ class Employee(models.Model):
     cargo = models.ForeignKey(EmployeeType, on_delete=models.CASCADE, verbose_name="Cargo")
     area = models.ForeignKey(Area, on_delete=models.CASCADE, verbose_name="Área")
     estado = models.CharField(max_length=2, choices=STATE_CHOICES, verbose_name="Estado")
-    tempo_de_empresa = models.CharField(max_length=20, verbose_name="Tempo de Empresa")
+    tempo_de_empresa = models.CharField(max_length=20, verbose_name="Tempo de Empresa", validators=[validate_stripped])
 
     def __str__(self):
         return f"[{self.empresa}] {self.pessoa.nome} - {self.pessoa.email}"
