@@ -132,8 +132,6 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 - [ ] **Task 11**: Report Generation
 - [ ] **Task 12**: Creative Exploration
 
----
-
 ## Task Descriptions
 
 ### **Task 1: Create a Basic Database**
@@ -410,6 +408,36 @@ To run the tests:
 
 ---
 
+## Running with Docker Compose
+
+This section provides a step-by-step guide to run the application using Docker Compose. This setup is for **development only** and includes a Django web app, PostgreSQL database, and pgAdmin for database management.
+
+### What is Downloaded
+- **PostgreSQL 15**: Database server image.
+- **pgAdmin4**: Web-based database admin tool.
+- **Web App**: Built from the Dockerfile using Python and dependencies.
+
+### Environment Variables
+Configured in `.env.dev` for development:
+- `DEBUG=1`: Enables debug mode (not for production).
+- Database and app settings (e.g., `SQL_DATABASE=pinpeople_db`, `POSTGRES_USER=postgresql`).
+- Full list in `.env.dev`.
+
+### Step-by-Step Guide
+1. **Install Prerequisites**: Ensure Docker and Docker Compose are installed.
+2. **Navigate to Project Root**: Go to the directory with `docker-compose.yml`.
+3. **Start Services**: Run `docker-compose up --build` to download images, build the app, and start containers.
+4. **Access Services**:
+   - Web app: `http://localhost:8000`
+   - pgAdmin: `http://localhost:16543` (login: admin@admin.com / admin)
+   - Database: `localhost:5432`
+5. **Run Migrations and Import Data**:
+   - They will run automatically when the container starts.
+6. **Stop Services**: Run `docker-compose down`.
+
+### Production Notes
+This is a development server. For production, disable debug mode, use an ASGI server (e.g., Uvicorn/Daphne), add a reverse proxy (e.g., Nginx), secure secrets, and implement monitoring/backups.
+
 ## Getting Started
 
 1. **Download the Dataset**: Access `data.csv` from the repository.
@@ -438,3 +466,16 @@ This is more than just a challenge—it's a playground for your ideas. Feel free
 ---
 
 We hope you enjoy this challenge and look forward to seeing the amazing things you create. Happy coding!
+
+## Final thoughts and choices
+
+- I chose to use Python and Django for this challenge because I am more familiar with these technologies and I wanted to learn more about them.
+- I used Django's built-in ORM to create the models and the database.
+- For the csv importing, I created a script using Django's management commands that import, process and save the data to the database.
+- For the API, I used Django's built-in REST framework to create the API endpoints.
+- For API documentation, I used the library drf_spetacular to generate the OpenAPI formated documentation.
+- For the database, used Postgres.
+- And for the environment I used Docker to create a container with the database and the application, running the migrations and the csv importing script.
+
+This was a really fun challenge. Thanks for the opportunity!
+
