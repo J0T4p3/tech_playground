@@ -13,4 +13,6 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = []
+dev = [
+    "blue>=0.9.1",
+]

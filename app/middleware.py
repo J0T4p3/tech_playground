@@ -2,6 +2,7 @@ class SecurityHeadersMiddleware:
     """
     Middleware to remove or modify headers that leak server information.
     """
+
     def __init__(self, get_response):
         self.get_response = get_response
 

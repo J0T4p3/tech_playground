@@ -8,15 +8,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Coordenadoria',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Coordenadoria')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(
+                        max_length=255, verbose_name='Coordenadoria'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Coordenadoria',
@@ -26,8 +38,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EmployeeLevel',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('funcao', models.CharField(max_length=255, verbose_name='Função')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'funcao',
+                    models.CharField(max_length=255, verbose_name='Função'),
+                ),
             ],
             options={
                 'verbose_name': 'Função',
@@ -37,8 +60,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EmployeeType',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cargo', models.CharField(max_length=255, verbose_name='Cargo')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'cargo',
+                    models.CharField(max_length=255, verbose_name='Cargo'),
+                ),
             ],
             options={
                 'verbose_name': 'Cargo',
@@ -48,8 +82,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Empresa',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Compania')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(max_length=255, verbose_name='Compania'),
+                ),
             ],
             options={
                 'verbose_name': 'Empresa',
@@ -59,11 +104,48 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Nome')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email')),
-                ('genero', models.CharField(choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], max_length=1, verbose_name='Gênero')),
-                ('geracao', models.CharField(choices=[('Baby Boomers', 'Baby Boomers'), ('Geração X', 'Geracao X'), ('Millennials', 'Millennials'), ('Geração Z', 'Geracao Z')], max_length=20, verbose_name='Geração')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(max_length=255, verbose_name='Nome'),
+                ),
+                (
+                    'email',
+                    models.EmailField(max_length=254, verbose_name='Email'),
+                ),
+                (
+                    'genero',
+                    models.CharField(
+                        choices=[
+                            ('M', 'Masculino'),
+                            ('F', 'Feminino'),
+                            ('O', 'Outro'),
+                        ],
+                        max_length=1,
+                        verbose_name='Gênero',
+                    ),
+                ),
+                (
+                    'geracao',
+                    models.CharField(
+                        choices=[
+                            ('Baby Boomers', 'Baby Boomers'),
+                            ('Geração X', 'Geracao X'),
+                            ('Millennials', 'Millennials'),
+                            ('Geração Z', 'Geracao Z'),
+                        ],
+                        max_length=20,
+                        verbose_name='Geração',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Pessoa',
@@ -73,10 +155,35 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Area',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Área')),
-                ('cordenadoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.coordenadoria', verbose_name='Coordenadoria')),
-                ('empresa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.empresa', verbose_name='Empresa')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(max_length=255, verbose_name='Área'),
+                ),
+                (
+                    'cordenadoria',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.coordenadoria',
+                        verbose_name='Coordenadoria',
+                    ),
+                ),
+                (
+                    'empresa',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.empresa',
+                        verbose_name='Empresa',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Área',
@@ -86,9 +193,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Diretoria',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Diretoria')),
-                ('empresa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.empresa', verbose_name='Empresa')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(max_length=255, verbose_name='Diretoria'),
+                ),
+                (
+                    'empresa',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.empresa',
+                        verbose_name='Empresa',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Diretoria',
@@ -98,15 +223,44 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='coordenadoria',
             name='empresa',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.empresa', verbose_name='Empresa'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='app.empresa',
+                verbose_name='Empresa',
+            ),
         ),
         migrations.CreateModel(
             name='Gerencia',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=255, verbose_name='Gerência')),
-                ('diretoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.diretoria', verbose_name='Diretoria')),
-                ('empresa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.empresa', verbose_name='Empresa')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'nome',
+                    models.CharField(max_length=255, verbose_name='Gerência'),
+                ),
+                (
+                    'diretoria',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.diretoria',
+                        verbose_name='Diretoria',
+                    ),
+                ),
+                (
+                    'empresa',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.empresa',
+                        verbose_name='Empresa',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Gerência',
@@ -116,20 +270,112 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='coordenadoria',
             name='gerencia',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.gerencia', verbose_name='Gerência'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='app.gerencia',
+                verbose_name='Gerência',
+            ),
         ),
         migrations.CreateModel(
             name='Employee',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email_corporativo', models.EmailField(max_length=254, verbose_name='Email Corporativo')),
-                ('estado', models.CharField(choices=[('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'), ('CE', 'Ceará'), ('DF', 'Distrito Federal'), ('ES', 'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'), ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG', 'Minas Gerais'), ('PA', 'Pará'), ('PB', 'Paraíba'), ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI', 'Piauí'), ('RJ', 'Rio de Janeiro'), ('RN', 'Rio Grande do Norte'), ('RO', 'Rondônia'), ('RR', 'Roraima'), ('RS', 'Rio Grande do Sul'), ('SC', 'Santa Catarina'), ('SP', 'São Paulo'), ('SE', 'Sergipe'), ('TO', 'Tocantins')], max_length=2, verbose_name='Estado')),
-                ('tempo_de_empresa', models.CharField(max_length=20, verbose_name='Tempo de Empresa')),
-                ('area', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.area', verbose_name='Área')),
-                ('funcao', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.employeelevel', verbose_name='Função')),
-                ('cargo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.employeetype', verbose_name='Cargo')),
-                ('empresa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.empresa', verbose_name='Empresa')),
-                ('pessoa', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='app.person', verbose_name='Funcionário')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'email_corporativo',
+                    models.EmailField(
+                        max_length=254, verbose_name='Email Corporativo'
+                    ),
+                ),
+                (
+                    'estado',
+                    models.CharField(
+                        choices=[
+                            ('AC', 'Acre'),
+                            ('AL', 'Alagoas'),
+                            ('AP', 'Amapá'),
+                            ('AM', 'Amazonas'),
+                            ('BA', 'Bahia'),
+                            ('CE', 'Ceará'),
+                            ('DF', 'Distrito Federal'),
+                            ('ES', 'Espírito Santo'),
+                            ('GO', 'Goiás'),
+                            ('MA', 'Maranhão'),
+                            ('MT', 'Mato Grosso'),
+                            ('MS', 'Mato Grosso do Sul'),
+                            ('MG', 'Minas Gerais'),
+                            ('PA', 'Pará'),
+                            ('PB', 'Paraíba'),
+                            ('PR', 'Paraná'),
+                            ('PE', 'Pernambuco'),
+                            ('PI', 'Piauí'),
+                            ('RJ', 'Rio de Janeiro'),
+                            ('RN', 'Rio Grande do Norte'),
+                            ('RO', 'Rondônia'),
+                            ('RR', 'Roraima'),
+                            ('RS', 'Rio Grande do Sul'),
+                            ('SC', 'Santa Catarina'),
+                            ('SP', 'São Paulo'),
+                            ('SE', 'Sergipe'),
+                            ('TO', 'Tocantins'),
+                        ],
+                        max_length=2,
+                        verbose_name='Estado',
+                    ),
+                ),
+                (
+                    'tempo_de_empresa',
+                    models.CharField(
+                        max_length=20, verbose_name='Tempo de Empresa'
+                    ),
+                ),
+                (
+                    'area',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.area',
+                        verbose_name='Área',
+                    ),
+                ),
+                (
+                    'funcao',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.employeelevel',
+                        verbose_name='Função',
+                    ),
+                ),
+                (
+                    'cargo',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.employeetype',
+                        verbose_name='Cargo',
+                    ),
+                ),
+                (
+                    'empresa',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.empresa',
+                        verbose_name='Empresa',
+                    ),
+                ),
+                (
+                    'pessoa',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.person',
+                        verbose_name='Funcionário',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Funcionário',
@@ -139,25 +385,112 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SurveyResponse',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data_da_resposta', models.DateField(verbose_name='Respondido em')),
-                ('interesse_no_cargo', models.IntegerField(verbose_name='Interesse no cargo')),
-                ('comentarios_interesse_no_cargo', models.TextField(blank=True, verbose_name='Interesse no cargo - Comentários')),
-                ('contribuicao', models.IntegerField(verbose_name='Contribuição')),
-                ('comentarios_contribuicao', models.TextField(blank=True, verbose_name='Comentários - Contribuição')),
-                ('aprendizado_e_desenvolvimento', models.IntegerField(verbose_name='Aprendizado e Desenvolvimento')),
-                ('comentarios_aprendizado_e_desenvolvimento', models.TextField(blank=True, verbose_name='Comentários - Aprendizado e Desenvolvimento')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'data_da_resposta',
+                    models.DateField(verbose_name='Respondido em'),
+                ),
+                (
+                    'interesse_no_cargo',
+                    models.IntegerField(verbose_name='Interesse no cargo'),
+                ),
+                (
+                    'comentarios_interesse_no_cargo',
+                    models.TextField(
+                        blank=True,
+                        verbose_name='Interesse no cargo - Comentários',
+                    ),
+                ),
+                (
+                    'contribuicao',
+                    models.IntegerField(verbose_name='Contribuição'),
+                ),
+                (
+                    'comentarios_contribuicao',
+                    models.TextField(
+                        blank=True, verbose_name='Comentários - Contribuição'
+                    ),
+                ),
+                (
+                    'aprendizado_e_desenvolvimento',
+                    models.IntegerField(
+                        verbose_name='Aprendizado e Desenvolvimento'
+                    ),
+                ),
+                (
+                    'comentarios_aprendizado_e_desenvolvimento',
+                    models.TextField(
+                        blank=True,
+                        verbose_name='Comentários - Aprendizado e Desenvolvimento',
+                    ),
+                ),
                 ('feedback', models.IntegerField(verbose_name='Feedback')),
-                ('comentarios_feedback', models.TextField(blank=True, verbose_name='Comentários - Feedback')),
-                ('interacao_com_gestor', models.IntegerField(verbose_name='Interação com o Gestor')),
-                ('comentarios_interacao_com_gestor', models.TextField(blank=True, verbose_name='Comentários - Interação com o Gestor')),
-                ('clareza_sobre_possibilidades_de_carreira', models.IntegerField(verbose_name='Clareza sobre Possibilidades de Carreira')),
-                ('comentarios_clareza_sobre_possibilidades_de_carreira', models.TextField(blank=True, verbose_name='Comentários - Clareza sobre Possibilidades de Carreira')),
-                ('expectativa_de_permanencia', models.IntegerField(verbose_name='Expectativa de Permanência')),
-                ('comentarios_expectativa_de_permanencia', models.TextField(blank=True, verbose_name='Comentários - Expectativa de Permanência')),
+                (
+                    'comentarios_feedback',
+                    models.TextField(
+                        blank=True, verbose_name='Comentários - Feedback'
+                    ),
+                ),
+                (
+                    'interacao_com_gestor',
+                    models.IntegerField(verbose_name='Interação com o Gestor'),
+                ),
+                (
+                    'comentarios_interacao_com_gestor',
+                    models.TextField(
+                        blank=True,
+                        verbose_name='Comentários - Interação com o Gestor',
+                    ),
+                ),
+                (
+                    'clareza_sobre_possibilidades_de_carreira',
+                    models.IntegerField(
+                        verbose_name='Clareza sobre Possibilidades de Carreira'
+                    ),
+                ),
+                (
+                    'comentarios_clareza_sobre_possibilidades_de_carreira',
+                    models.TextField(
+                        blank=True,
+                        verbose_name='Comentários - Clareza sobre Possibilidades de Carreira',
+                    ),
+                ),
+                (
+                    'expectativa_de_permanencia',
+                    models.IntegerField(
+                        verbose_name='Expectativa de Permanência'
+                    ),
+                ),
+                (
+                    'comentarios_expectativa_de_permanencia',
+                    models.TextField(
+                        blank=True,
+                        verbose_name='Comentários - Expectativa de Permanência',
+                    ),
+                ),
                 ('enps', models.IntegerField(verbose_name='eNPS')),
-                ('aberta_enps', models.TextField(blank=True, verbose_name='Comentários - eNPS')),
-                ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.employee', verbose_name='Funcionário')),
+                (
+                    'aberta_enps',
+                    models.TextField(
+                        blank=True, verbose_name='Comentários - eNPS'
+                    ),
+                ),
+                (
+                    'employee',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='app.employee',
+                        verbose_name='Funcionário',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Resposta de Pesquisa',
